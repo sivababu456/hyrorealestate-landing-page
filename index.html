@@ -1,0 +1,1799 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Villa del GARDA – Branded Residences by Mr. Eight</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: '#1F3A5F',
+                        'navy-dark': '#142740',
+                        'navy-light': '#2A4F7A',
+                        gold: '#C9A86A',
+                        'gold-light': '#D4BC8A',
+                        'gold-dark': '#B08D4E',
+                        beige: '#F5F1EB',
+                        'beige-dark': '#EDE7DC',
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #FFFFFF;
+            color: #1F3A5F;
+            overflow-x: hidden;
+        }
+
+        ::selection {
+            background: rgba(201, 168, 106, 0.3);
+            color: #1F3A5F;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #F5F1EB;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #C9A86A;
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #B08D4E;
+        }
+
+        .hero-bg {
+            background: linear-gradient(135deg, rgba(31, 58, 95, 0.7) 0%, rgba(20, 39, 64, 0.5) 50%, rgba(31, 58, 95, 0.6) 100%);
+        }
+
+        .gold-gradient {
+            background: linear-gradient(135deg, #C9A86A, #D4BC8A, #C9A86A);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .gold-border-gradient {
+            border-image: linear-gradient(135deg, #C9A86A, #D4BC8A, #C9A86A) 1;
+        }
+
+        .parallax-section {
+            will-change: transform;
+        }
+
+        .fade-up {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+
+        .fade-left {
+            opacity: 0;
+            transform: translateX(-40px);
+        }
+
+        .fade-right {
+            opacity: 0;
+            transform: translateX(40px);
+        }
+
+        .scale-in {
+            opacity: 0;
+            transform: scale(0.9);
+        }
+
+        .line-reveal {
+            width: 0;
+        }
+
+        .gold-line {
+            background: linear-gradient(90deg, transparent, #C9A86A, transparent);
+            height: 1px;
+        }
+
+        .navy-line {
+            background: linear-gradient(90deg, transparent, rgba(31, 58, 95, 0.2), transparent);
+            height: 1px;
+        }
+
+        .card-hover {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 60px -15px rgba(31, 58, 95, 0.15);
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, #C9A86A, #D4BC8A);
+            color: #1F3A5F;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-gold::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .btn-gold:hover::before {
+            left: 100%;
+        }
+
+        .btn-gold:hover {
+            background: linear-gradient(135deg, #B08D4E, #C9A86A);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px -5px rgba(201, 168, 106, 0.4);
+        }
+
+        .btn-outline-gold {
+            border: 1px solid #C9A86A;
+            color: #C9A86A;
+            transition: all 0.4s ease;
+        }
+
+        .btn-outline-gold:hover {
+            background: #C9A86A;
+            color: #1F3A5F;
+        }
+
+        .sticky-badge {
+            position: fixed;
+            top: 90px;
+            right: 20px;
+            z-index: 40;
+            animation: pulse-badge 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-badge {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(201, 168, 106, 0.4);
+            }
+
+            50% {
+                box-shadow: 0 0 0 10px rgba(201, 168, 106, 0);
+            }
+        }
+
+        .sticky-cta-mobile {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+        }
+
+        .sticky-cta-mobile.visible {
+            transform: translateY(0);
+        }
+
+        .form-input {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(201, 168, 106, 0.3);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #C9A86A;
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 0 3px rgba(201, 168, 106, 0.1);
+        }
+
+        .form-input-light {
+            background: #FFFFFF;
+            border: 1px solid #E5E1DB;
+            color: #1F3A5F;
+            transition: all 0.3s ease;
+        }
+
+        .form-input-light::placeholder {
+            color: #8A8A8A;
+        }
+
+        .form-input-light:focus {
+            outline: none;
+            border-color: #C9A86A;
+            box-shadow: 0 0 0 3px rgba(201, 168, 106, 0.1);
+        }
+
+        .amenity-card {
+            background: #FFFFFF;
+            border: 1px solid #EDE7DC;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .amenity-card:hover {
+            border-color: #C9A86A;
+            box-shadow: 0 20px 50px -15px rgba(31, 58, 95, 0.12);
+        }
+
+        .amenity-card:hover .amenity-icon {
+            background: linear-gradient(135deg, #C9A86A, #D4BC8A);
+            color: #1F3A5F;
+        }
+
+        .amenity-card:hover .amenity-icon svg {
+            color: #1F3A5F;
+        }
+
+        .unit-card {
+            background: linear-gradient(180deg, #FFFFFF 0%, #F9F7F4 100%);
+            border: 1px solid #EDE7DC;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .unit-card:hover {
+            border-color: #C9A86A;
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px -15px rgba(31, 58, 95, 0.15);
+        }
+
+        .img-hover {
+            overflow: hidden;
+        }
+
+        .img-hover img {
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .img-hover:hover img {
+            transform: scale(1.05);
+        }
+
+        .nav-scrolled {
+            background: rgba(255, 255, 255, 0.95) !important;
+            backdrop-filter: blur(20px) !important;
+            box-shadow: 0 1px 20px rgba(31, 58, 95, 0.08) !important;
+        }
+
+        .toast-notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            z-index: 100;
+            transform: translateX(120%);
+            transition: transform 0.4s ease;
+        }
+
+        .toast-notification.show {
+            transform: translateX(0);
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .counter {
+            font-variant-numeric: tabular-nums;
+        }
+
+        .floor-btn {
+            border: 1px solid rgba(31, 58, 95, 0.1);
+            color: #1F3A5F;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .floor-btn:hover {
+            border-color: #C9A86A;
+            color: #C9A86A;
+            background: rgba(201, 168, 106, 0.05);
+        }
+
+        .floor-btn.active {
+            background: #1F3A5F;
+            color: #C9A86A;
+            border-color: #1F3A5F;
+            box-shadow: 0 10px 25px -5px rgba(31, 58, 95, 0.2);
+        }
+
+        .floor-plan-image-container {
+            mask-image: linear-gradient(to bottom, black 90%, transparent);
+            -webkit-mask-image: linear-gradient(to bottom, black 90%, transparent);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast-notification">
+        <div class="bg-navy text-white px-6 py-4 rounded-sm shadow-2xl flex items-center gap-3 max-w-sm">
+            <i data-lucide="check-circle" class="w-5 h-5 text-gold flex-shrink-0"></i>
+            <p class="text-sm font-light" id="toastMessage">Thank you! We'll be in touch shortly.</p>
+        </div>
+    </div>
+
+    <!-- Sticky Top 100 Badge (Desktop) -->
+    <div class="sticky-badge hidden lg:block">
+        <a href="#trust" class="block">
+            <img src="https://z-cdn-media.chatglm.cn/files/8b3dc4be-bf59-49f9-9efe-4f8371d7271e.png?auth_key=1876853941-eecf6fa797864e8db7ddef29503838b8-0-a3635ae05ef2dee2cc04091d7d161601"
+                alt="Top 100 Developer" class="w-16 h-16 object-contain rounded-full shadow-lg">
+        </a>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <a href="#" class="flex items-center group">
+                    <img src="assets/logo.png" alt="Hyro Logo" id="navLogo"
+                        class="h-10 sm:h-12 w-auto object-contain transition-all duration-500 brightness-0 invert">
+                </a>
+
+                <!-- Desktop Nav -->
+                <div class="hidden lg:flex items-center gap-8">
+                    <a href="#story"
+                        class="text-xs tracking-[0.15em] uppercase text-white/80 nav-link hover:text-gold transition-colors duration-300">Story</a>
+                    <a href="#lifestyle"
+                        class="text-xs tracking-[0.15em] uppercase text-white/80 nav-link hover:text-gold transition-colors duration-300">Lifestyle</a>
+                    <a href="#amenities"
+                        class="text-xs tracking-[0.15em] uppercase text-white/80 nav-link hover:text-gold transition-colors duration-300">Amenities</a>
+                    <a href="#floor-plans"
+                        class="text-xs tracking-[0.15em] uppercase text-white/80 nav-link hover:text-gold transition-colors duration-300">Plans</a>
+                    <a href="#location"
+                        class="text-xs tracking-[0.15em] uppercase text-white/80 nav-link hover:text-gold transition-colors duration-300">Location</a>
+                    <a href="#investment"
+                        class="text-xs tracking-[0.15em] uppercase text-white/80 nav-link hover:text-gold transition-colors duration-300">Investment</a>
+                    <a href="#lead-form"
+                        class="btn-gold px-6 py-3 text-[10px] tracking-[0.2em] uppercase font-bold rounded-sm shadow-lg shadow-gold/10 hover:shadow-gold/20 transition-all">Register
+                        Interest</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobileMenuBtn" class="lg:hidden text-white nav-text-color">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="lg:hidden hidden bg-navy-dark backdrop-blur-xl border-t border-white/10">
+            <div class="px-6 py-8 space-y-6">
+                <a href="#story"
+                    class="block text-sm tracking-[0.15em] uppercase text-white/80 hover:text-gold transition-colors mobile-nav-link">Story</a>
+                <a href="#lifestyle"
+                    class="block text-sm tracking-[0.15em] uppercase text-white/80 hover:text-gold transition-colors mobile-nav-link">Lifestyle</a>
+                <a href="#amenities"
+                    class="block text-sm tracking-[0.15em] uppercase text-white/80 hover:text-gold transition-colors mobile-nav-link">Amenities</a>
+                <a href="#floor-plans"
+                    class="block text-sm tracking-[0.15em] uppercase text-white/80 hover:text-gold transition-colors mobile-nav-link">Floor
+                    Plans</a>
+                <a href="#location"
+                    class="block text-sm tracking-[0.15em] uppercase text-white/80 hover:text-gold transition-colors mobile-nav-link">Location</a>
+                <a href="#investment"
+                    class="block text-sm tracking-[0.15em] uppercase text-white/80 hover:text-gold transition-colors mobile-nav-link">Investment</a>
+                <div class="pt-4 border-t border-white/10">
+                    <a href="#lead-form"
+                        class="btn-gold block text-center px-5 py-3 text-xs tracking-[0.15em] uppercase font-semibold rounded-sm mobile-nav-link">Register
+                        Interest</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ==================== HERO SECTION ==================== -->
+    <section id="hero" class="relative min-h-screen flex items-center overflow-hidden">
+        <!-- Background Image -->
+        <div class="absolute inset-0 parallax-section">
+            <img src="https://z-cdn-media.chatglm.cn/files/b2c8b121-694d-40e7-bd95-6152265ae7d8.png?auth_key=1876853941-2677dd92457242c6bd67cd13cf6a7ee6-0-8c16d01eebdf2800889a45e6decf64b7"
+                alt="Dubai Waterfront" class="w-full h-full object-cover scale-110">
+        </div>
+        <!-- Overlay -->
+        <div class="hero-bg absolute inset-0"></div>
+        <!-- Bottom gradient -->
+        <div class="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-white to-transparent"></div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 w-full pt-32 pb-24 lg:pt-0 lg:pb-0">
+            <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                <!-- Left: Content -->
+                <div class="order-2 lg:order-1">
+                    <!-- Top 100 Badge (inline) -->
+                    <div class="hero-badge fade-up flex items-center gap-3 mb-8">
+                        <img src="https://z-cdn-media.chatglm.cn/files/8b3dc4be-bf59-49f9-9efe-4f8371d7271e.png?auth_key=1876853941-eecf6fa797864e8db7ddef29503838b8-0-a3635ae05ef2dee2cc04091d7d161601"
+                            alt="Top 100" class="w-12 h-12 object-contain">
+                        <div class="text-left">
+                            <p class="text-[10px] tracking-[0.25em] uppercase text-gold font-semibold">World Top 100</p>
+                            <p class="text-[10px] tracking-[0.15em] uppercase text-white/50">Developer 2023</p>
+                        </div>
+                    </div>
+
+                    <!-- Headline -->
+                    <h1
+                        class="font-serif text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-medium text-white leading-[1.05] tracking-tight mb-4 fade-up">
+                        VILLA <span class="italic font-normal">del</span><br>
+                        <span class="gold-gradient">GARDA</span>
+                    </h1>
+
+                    <div class="fade-up">
+                        <p class="text-sm sm:text-base tracking-[0.2em] uppercase text-gold-light font-medium mb-2">
+                            Branded Residences by Mr. Eight Development</p>
+                        <p class="text-[10px] tracking-[0.2em] uppercase text-white/40 mb-8">World Top 100 Developer</p>
+                    </div>
+
+                    <!-- Tagline -->
+                    <p class="font-serif text-xl sm:text-2xl lg:text-3xl text-white/90 italic font-light mb-10 fade-up">
+                        A Waterfront Life.<br>Redefined.
+                    </p>
+
+                    <!-- CTA Buttons -->
+                    <div class="flex flex-wrap gap-4 fade-up">
+                        <a href="#lead-form"
+                            class="btn-gold px-8 py-4 text-xs tracking-[0.2em] uppercase font-semibold rounded-sm inline-flex items-center gap-2">
+                            Register Interest
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </a>
+                        <a href="#story"
+                            class="btn-outline-gold px-8 py-4 text-xs tracking-[0.2em] uppercase font-medium rounded-sm">
+                            Discover More
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right: Lead Form -->
+                <div class="order-1 lg:order-2 fade-up">
+                    <div
+                        class="bg-white/[0.08] backdrop-blur-xl border border-white/15 rounded-sm p-8 lg:p-10 max-w-md mx-auto lg:ml-auto">
+                        <div class="text-center mb-8">
+                            <p class="text-[10px] tracking-[0.3em] uppercase text-gold font-semibold mb-3">Exclusive
+                                Access</p>
+                            <h3 class="font-serif text-2xl text-white font-medium mb-2">Get Priority Access</h3>
+                            <p class="text-sm text-white/50 font-light">Floor plans & prices available</p>
+                        </div>
+
+                        <form id="heroForm" class="space-y-4" onsubmit="handleFormSubmit(event, 'heroForm')">
+                            <div>
+                                <input type="text" placeholder="Full Name" required
+                                    class="form-input w-full px-4 py-3.5 rounded-sm text-sm font-light">
+                            </div>
+                            <div>
+                                <input type="tel" placeholder="Phone Number" required
+                                    class="form-input w-full px-4 py-3.5 rounded-sm text-sm font-light">
+                            </div>
+                            <div>
+                                <input type="email" placeholder="Email Address" required
+                                    class="form-input w-full px-4 py-3.5 rounded-sm text-sm font-light">
+                            </div>
+                            <button type="submit"
+                                class="btn-gold w-full py-4 text-xs tracking-[0.2em] uppercase font-semibold rounded-sm flex items-center justify-center gap-2">
+                                Get Floor Plans & Prices
+                                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                            </button>
+                        </form>
+
+                        <p class="text-[10px] text-white/30 text-center mt-4 font-light">Your information is kept
+                            strictly confidential</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 hero-scroll-indicator"
+            style="animation: float 3s ease-in-out infinite;">
+            <span class="text-[9px] tracking-[0.3em] uppercase text-white/40">Scroll</span>
+            <div class="w-px h-8 bg-gradient-to-b from-gold/60 to-transparent"></div>
+        </div>
+    </section>
+
+    <!-- ==================== TRUST / TOP 100 SECTION ==================== -->
+    <section id="trust" class="py-24 lg:py-32 bg-white relative overflow-hidden">
+        <!-- Decorative elements -->
+        <div
+            class="absolute top-0 right-0 w-96 h-96 bg-beige/50 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl">
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+                <!-- Left: Badge -->
+                <div class="flex justify-center lg:justify-end fade-left">
+                    <div class="relative">
+                        <div
+                            class="absolute -inset-8 bg-gradient-to-br from-gold/10 to-transparent rounded-full blur-2xl">
+                        </div>
+                        <img src="https://z-cdn-media.chatglm.cn/files/8b3dc4be-bf59-49f9-9efe-4f8371d7271e.png?auth_key=1876853941-eecf6fa797864e8db7ddef29503838b8-0-a3635ae05ef2dee2cc04091d7d161601"
+                            alt="Luxury Lifestyle Awards - Top 100 Developer"
+                            class="relative w-64 h-64 lg:w-80 lg:h-80 object-contain">
+                    </div>
+                </div>
+
+                <!-- Right: Content -->
+                <div class="fade-right">
+                    <p class="text-[10px] tracking-[0.35em] uppercase text-gold font-semibold mb-4">Global Recognition
+                    </p>
+                    <h2
+                        class="font-serif text-3xl sm:text-4xl lg:text-5xl font-medium text-navy leading-tight tracking-tight mb-4">
+                        MR. EIGHT
+                    </h2>
+                    <p class="text-lg sm:text-xl tracking-[0.15em] uppercase text-gold font-medium mb-8">
+                        World Top 100 Developer
+                    </p>
+
+                    <div class="w-16 h-px bg-gold mb-8 line-reveal"></div>
+
+                    <p class="text-base lg:text-lg text-navy/70 font-light leading-relaxed mb-6">
+                        Recognized among the <strong class="font-medium text-navy">Top 100 Developers Worldwide</strong>
+                        by U.S. Luxury Lifestyle Awards.
+                    </p>
+                    <p class="text-base lg:text-lg text-navy/70 font-light leading-relaxed">
+                        A benchmark of excellence in architecture, innovation, and luxury living.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gold Divider -->
+    <div class="gold-line w-full"></div>
+
+    <!-- ==================== STORY SECTION ==================== -->
+    <section id="story" class="py-24 lg:py-40 bg-beige relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="max-w-3xl mx-auto text-center">
+                <p class="text-[10px] tracking-[0.35em] uppercase text-gold font-semibold mb-6 fade-up">The Beginning
+                </p>
+
+                <h2
+                    class="font-serif text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-medium text-navy leading-[1.15] tracking-tight mb-12 fade-up">
+                    Every Story Begins<br>With a <span class="italic">Dream</span>
+                </h2>
+
+                <div class="space-y-6 fade-up">
+                    <p class="text-base lg:text-lg text-navy/70 font-light leading-relaxed">
+                        Every story begins with a dream. Not with square meters or drawings, but with a feeling of how
+                        life should truly be lived.
+                    </p>
+                    <p class="text-base lg:text-lg text-navy/70 font-light leading-relaxed">
+                        <strong class="font-medium text-navy">Villa del GARDA</strong> is a serviced boutique residence
+                        on Dubai Islands, created for those who seek more than just a home.
+                    </p>
+                    <p class="text-base lg:text-lg text-navy/70 font-light leading-relaxed">
+                        A rare waterfront address where refined living meets breathtaking marina views.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Decorative quote marks -->
+            <div class="hidden lg:block">
+                <span class="font-serif text-[200px] text-gold/10 absolute top-20 left-10 leading-none">"</span>
+                <span class="font-serif text-[200px] text-gold/10 absolute bottom-20 right-10 leading-none">"</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== LIFESTYLE SECTION ==================== -->
+    <section id="lifestyle" class="py-24 lg:py-40 bg-white relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                <!-- Left: Image -->
+                <div class="img-hover rounded-sm shadow-2xl fade-left">
+                    <img src="assets/about-us.png" alt="Luxury Villa Interior"
+                        class="w-full h-80 lg:h-[500px] object-cover rounded-sm">
+                </div>
+
+                <!-- Right: Content -->
+                <div class="fade-right">
+                    <p class="text-[10px] tracking-[0.35em] uppercase text-gold font-semibold mb-4">The Standard</p>
+                    <h2
+                        class="font-serif text-3xl sm:text-4xl lg:text-5xl font-medium text-navy leading-tight tracking-tight mb-6">
+                        A Fully Furnished,<br>Fully Serviced Way of Life
+                    </h2>
+
+                    <div class="w-16 h-px bg-gold mb-8 line-reveal"></div>
+
+                    <p class="text-lg text-navy/80 font-light italic mb-10">
+                        Luxury is not an upgrade. It is the standard.
+                    </p>
+
+                    <!-- Features List -->
+                    <div class="space-y-6 mb-10">
+                        <div class="flex items-start gap-4">
+                            <div class="w-1 h-full min-h-[40px] bg-gold/40 rounded-full flex-shrink-0 mt-1"></div>
+                            <div>
+                                <h4 class="text-sm font-semibold text-navy mb-1">Fully Furnished Residences</h4>
+                                <p class="text-sm text-navy/60 font-light">Italian kitchens & wardrobes, premium
+                                    materials & craftsmanship</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-1 h-full min-h-[40px] bg-gold/40 rounded-full flex-shrink-0 mt-1"></div>
+                            <div>
+                                <h4 class="text-sm font-semibold text-navy mb-1">Hotel-Style Living</h4>
+                                <p class="text-sm text-navy/60 font-light">Seamless five-star services at your doorstep
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Services Grid -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="flex items-center gap-3 py-3 px-4 bg-beige/60 rounded-sm">
+                            <i data-lucide="sparkles" class="w-4 h-4 text-gold"></i>
+                            <span class="text-sm text-navy/80 font-light">Housekeeping</span>
+                        </div>
+                        <div class="flex items-center gap-3 py-3 px-4 bg-beige/60 rounded-sm">
+                            <i data-lucide="car" class="w-4 h-4 text-gold"></i>
+                            <span class="text-sm text-navy/80 font-light">Valet</span>
+                        </div>
+                        <div class="flex items-center gap-3 py-3 px-4 bg-beige/60 rounded-sm">
+                            <i data-lucide="concierge-bell" class="w-4 h-4 text-gold"></i>
+                            <span class="text-sm text-navy/80 font-light">Concierge</span>
+                        </div>
+                        <div class="flex items-center gap-3 py-3 px-4 bg-beige/60 rounded-sm">
+                            <i data-lucide="shield-check" class="w-4 h-4 text-gold"></i>
+                            <span class="text-sm text-navy/80 font-light">24/7 Security</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== AMENITIES SECTION ==================== -->
+    <section id="amenities" class="py-24 lg:py-40 bg-beige relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <!-- Header -->
+            <div class="text-center mb-16 lg:mb-20">
+                <p class="text-[10px] tracking-[0.35em] uppercase text-gold font-semibold mb-4 fade-up">Curated
+                    Experiences</p>
+                <h2
+                    class="font-serif text-3xl sm:text-4xl lg:text-5xl font-medium text-navy leading-tight tracking-tight fade-up">
+                    World-Class <span class="italic">Amenities</span>
+                </h2>
+            </div>
+
+            <!-- Amenities Grid -->
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+                <!-- 1. Infinity Pool -->
+                <div class="amenity-card rounded-sm p-8 text-center card-hover fade-up">
+                    <div
+                        class="amenity-icon w-16 h-16 mx-auto mb-6 bg-beige rounded-full flex items-center justify-center transition-all duration-500">
+                        <i data-lucide="waves" class="w-7 h-7 text-gold"></i>
+                    </div>
+                    <h3 class="font-serif text-xl text-navy font-medium mb-3">Infinity Pool</h3>
+                    <p class="text-sm text-navy/60 font-light leading-relaxed">Breathtaking waterfront pool with
+                        panoramic marina views</p>
+                </div>
+
+                <!-- 2. Private Gardens -->
+                <div class="amenity-card rounded-sm p-8 text-center card-hover fade-up">
+                    <div
+                        class="amenity-icon w-16 h-16 mx-auto mb-6 bg-beige rounded-full flex items-center justify-center transition-all duration-500">
+                        <i data-lucide="flower-2" class="w-7 h-7 text-gold"></i>
+                    </div>
+                    <h3 class="font-serif text-xl text-navy font-medium mb-3">Private Gardens</h3>
+                    <p class="text-sm text-navy/60 font-light leading-relaxed">Landscaped green sanctuaries for peaceful
+                        living</p>
+                </div>
+
+                <!-- 3. Fitness Spaces -->
+                <div class="amenity-card rounded-sm p-8 text-center card-hover fade-up">
+                    <div
+                        class="amenity-icon w-16 h-16 mx-auto mb-6 bg-beige rounded-full flex items-center justify-center transition-all duration-500">
+                        <i data-lucide="dumbbell" class="w-7 h-7 text-gold"></i>
+                    </div>
+                    <h3 class="font-serif text-xl text-navy font-medium mb-3">Fitness Spaces</h3>
+                    <p class="text-sm text-navy/60 font-light leading-relaxed">State-of-the-art gym and wellness
+                        facilities</p>
+                </div>
+
+                <!-- 4. Café & Restaurant -->
+                <div class="amenity-card rounded-sm p-8 text-center card-hover fade-up">
+                    <div
+                        class="amenity-icon w-16 h-16 mx-auto mb-6 bg-beige rounded-full flex items-center justify-center transition-all duration-500">
+                        <i data-lucide="utensils" class="w-7 h-7 text-gold"></i>
+                    </div>
+                    <h3 class="font-serif text-xl text-navy font-medium mb-3">Café & Restaurant</h3>
+                    <p class="text-sm text-navy/60 font-light leading-relaxed">Fine dining and artisanal café
+                        experiences</p>
+                </div>
+
+                <!-- 5. Wellness Zones -->
+                <div class="amenity-card rounded-sm p-8 text-center card-hover fade-up">
+                    <div
+                        class="amenity-icon w-16 h-16 mx-auto mb-6 bg-beige rounded-full flex items-center justify-center transition-all duration-500">
+                        <i data-lucide="heart-pulse" class="w-7 h-7 text-gold"></i>
+                    </div>
+                    <h3 class="font-serif text-xl text-navy font-medium mb-3">Wellness Zones</h3>
+                    <p class="text-sm text-navy/60 font-light leading-relaxed">Spa, sauna, and holistic therapy spaces
+                    </p>
+                </div>
+
+                <!-- 6. Yacht Lifestyle -->
+                <div class="amenity-card rounded-sm p-8 text-center card-hover fade-up">
+                    <div
+                        class="amenity-icon w-16 h-16 mx-auto mb-6 bg-beige rounded-full flex items-center justify-center transition-all duration-500">
+                        <i data-lucide="sailboat" class="w-7 h-7 text-gold"></i>
+                    </div>
+                    <h3 class="font-serif text-xl text-navy font-medium mb-3">Yacht Lifestyle</h3>
+                    <p class="text-sm text-navy/60 font-light leading-relaxed">Private marina access and yacht berths
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== ULTRA LUXURY SERVICES ==================== -->
+    <section class="py-24 lg:py-40 bg-navy relative overflow-hidden">
+        <!-- Decorative -->
+        <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent">
+        </div>
+        <div class="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent">
+        </div>
+        <div
+            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gold/5 rounded-full blur-3xl">
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+            <!-- Header -->
+            <div class="text-center mb-16 lg:mb-20">
+                <p class="text-[10px] tracking-[0.35em] uppercase text-gold font-semibold mb-4 fade-up">Beyond
+                    Expectation</p>
+                <h2
+                    class="font-serif text-3xl sm:text-4xl lg:text-5xl font-medium text-white leading-tight tracking-tight fade-up">
+                    Signature Privileges<br><span class="italic text-gold-light">Reserved for Residents</span>
+                </h2>
+            </div>
+
+            <!-- Services -->
+            <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-6 lg:gap-4">
+                <!-- Rolls-Royce -->
+                <div class="text-center group fade-up">
+                    <div
+                        class="w-20 h-20 mx-auto mb-5 border border-gold/30 rounded-full flex items-center justify-center group-hover:bg-gold/10 transition-all duration-500">
+                        <i data-lucide="crown" class="w-8 h-8 text-gold"></i>
+                    </div>
+                    <h3 class="font-serif text-base text-white font-medium mb-2">Rolls-Royce Chauffeur</h3>
+                    <p class="text-xs text-white/40 font-light">Complimentary luxury transfers</p>
+                </div>
+
+                <!-- Riva Motorboat -->
+                <div class="text-center group fade-up">
+                    <div
+                        class="w-20 h-20 mx-auto mb-5 border border-gold/30 rounded-full flex items-center justify-center group-hover:bg-gold/10 transition-all duration-500">
+                        <i data-lucide="ship" class="w-8 h-8 text-gold"></i>
+                    </div>
+                    <h3 class="font-serif text-base text-white font-medium mb-2">Riva Motorboat</h3>
+                    <p class="text-xs text-white/40 font-light">With professional captain</p>
+                </div>
+
+                <!-- Golf Cart -->
+                <div class="text-center group fade-up">
+                    <div
+                        class="w-20 h-20 mx-auto mb-5 border border-gold/30 rounded-full flex items-center justify-center group-hover:bg-gold/10 transition-all duration-500">
+                        <i data-lucide="car-front" class="w-8 h-8 text-gold"></i>
+                    </div>
+                    <h3 class="font-serif text-base text-white font-medium mb-2">Golf Cart Chauffeur</h3>
+                    <p class="text-xs text-white/40 font-light">Island-wide convenience</p>
+                </div>
+
+                <!-- Estate Manager -->
+                <div class="text-center group fade-up">
+                    <div
+                        class="w-20 h-20 mx-auto mb-5 border border-gold/30 rounded-full flex items-center justify-center group-hover:bg-gold/10 transition-all duration-500">
+                        <i data-lucide="user-check" class="w-8 h-8 text-gold"></i>
+                    </div>
+                    <h3 class="font-serif text-base text-white font-medium mb-2">Estate Manager</h3>
+                    <p class="text-xs text-white/40 font-light">Dedicated property management</p>
+                </div>
+
+                <!-- Private Concierge -->
+                <div class="text-center group fade-up">
+                    <div
+                        class="w-20 h-20 mx-auto mb-5 border border-gold/30 rounded-full flex items-center justify-center group-hover:bg-gold/10 transition-all duration-500">
+                        <i data-lucide="gem" class="w-8 h-8 text-gold"></i>
+                    </div>
+                    <h3 class="font-serif text-base text-white font-medium mb-2">Private Concierge</h3>
+                    <p class="text-xs text-white/40 font-light">Bespoke lifestyle experiences</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== LOCATION SECTION ==================== -->
+    <section id="location" class="py-24 lg:py-40 bg-white relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <!-- Header -->
+            <div class="text-center mb-12 lg:mb-16">
+                <p class="text-[10px] tracking-[0.35em] uppercase text-gold font-semibold mb-4 fade-up">Prime Location
+                </p>
+                <h2
+                    class="font-serif text-3xl sm:text-4xl lg:text-5xl font-medium text-navy leading-tight tracking-tight fade-up">
+                    First-Row Marina Location
+                </h2>
+                <p class="text-base text-navy/60 font-light mt-4 fade-up">Located on Dubai Islands</p>
+            </div>
+
+            <!-- Location Image -->
+            <div class="img-hover rounded-sm shadow-2xl mb-12 lg:mb-16 fade-up">
+                <img src="assets/location.png" alt="Dubai Islands Masterplan"
+                    class="w-full h-64 sm:h-80 lg:h-[800px] object-cover rounded-sm">
+            </div>
+
+            <!-- Proximity Cards -->
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="text-center p-6 bg-beige/50 rounded-sm card-hover fade-up">
+                    <div class="font-serif text-4xl text-gold font-medium mb-2 counter" data-target="15">0</div>
+                    <p class="text-xs tracking-[0.15em] uppercase text-navy/70 font-medium">Mins to DIFC</p>
+                </div>
+                <div class="text-center p-6 bg-beige/50 rounded-sm card-hover fade-up">
+                    <div class="font-serif text-4xl text-gold font-medium mb-2 counter" data-target="20">0</div>
+                    <p class="text-xs tracking-[0.15em] uppercase text-navy/70 font-medium">Mins to Downtown Dubai</p>
+                </div>
+                <div class="text-center p-6 bg-beige/50 rounded-sm card-hover fade-up">
+                    <i data-lucide="anchor" class="w-8 h-8 text-gold mx-auto mb-2"></i>
+                    <p class="text-xs tracking-[0.15em] uppercase text-navy/70 font-medium">Direct Marina & Beach Access
+                    </p>
+                </div>
+                <div class="text-center p-6 bg-beige/50 rounded-sm card-hover fade-up">
+                    <i data-lucide="trending-up" class="w-8 h-8 text-gold mx-auto mb-2"></i>
+                    <p class="text-xs tracking-[0.15em] uppercase text-navy/70 font-medium">Dubai Vision 2040 Growth Hub
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== INVESTMENT SECTION ==================== -->
+    <section id="investment" class="py-24 lg:py-40 bg-navy relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent">
+        </div>
+        <div class="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent">
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+            <!-- Header -->
+            <div class="text-center mb-16 lg:mb-20">
+                <p class="text-[10px] tracking-[0.35em] uppercase text-gold font-semibold mb-4 fade-up">Smart Investment
+                </p>
+                <h2
+                    class="font-serif text-3xl sm:text-4xl lg:text-5xl font-medium text-white leading-tight tracking-tight fade-up">
+                    Investment <span class="italic text-gold-light">Highlights</span>
+                </h2>
+            </div>
+
+            <!-- Key Numbers -->
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                <!-- Starting Price -->
+                <div
+                    class="text-center p-10 border border-white/10 rounded-sm fade-up hover:border-gold/30 transition-colors duration-500">
+                    <p class="text-[10px] tracking-[0.3em] uppercase text-white/40 mb-4">Starting From</p>
+                    <p class="font-serif text-4xl lg:text-5xl text-gold font-medium mb-2">AED 2.6M</p>
+                    <p class="text-sm text-white/50 font-light">Premium waterfront residences</p>
+                </div>
+
+                <!-- Payment Plan -->
+                <div
+                    class="text-center p-10 border border-white/10 rounded-sm fade-up hover:border-gold/30 transition-colors duration-500">
+                    <p class="text-[10px] tracking-[0.3em] uppercase text-white/40 mb-4">Payment Plan</p>
+                    <p class="font-serif text-4xl lg:text-5xl text-gold font-medium mb-2">35 / 65</p>
+                    <p class="text-sm text-white/50 font-light">Developer-friendly structure</p>
+                </div>
+
+                <!-- Handover -->
+                <div
+                    class="text-center p-10 border border-white/10 rounded-sm sm:col-span-2 lg:col-span-1 fade-up hover:border-gold/30 transition-colors duration-500">
+                    <p class="text-[10px] tracking-[0.3em] uppercase text-white/40 mb-4">Handover</p>
+                    <p class="font-serif text-4xl lg:text-5xl text-gold font-medium mb-2">Q1 2028</p>
+                    <p class="text-sm text-white/50 font-light">Expected completion</p>
+                </div>
+            </div>
+
+            <!-- Bottom highlights -->
+            <div class="grid sm:grid-cols-3 gap-6 fade-up">
+                <div class="flex items-center gap-4 p-6 bg-white/[0.03] border border-white/10 rounded-sm">
+                    <i data-lucide="trending-up" class="w-6 h-6 text-gold flex-shrink-0"></i>
+                    <div>
+                        <h4 class="text-sm font-medium text-white mb-1">High ROI Potential</h4>
+                        <p class="text-xs text-white/40 font-light">Strong rental demand</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4 p-6 bg-white/[0.03] border border-white/10 rounded-sm">
+                    <i data-lucide="waves" class="w-6 h-6 text-gold flex-shrink-0"></i>
+                    <div>
+                        <h4 class="text-sm font-medium text-white mb-1">Waterfront Appreciation</h4>
+                        <p class="text-xs text-white/40 font-light">Limited supply, high demand</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4 p-6 bg-white/[0.03] border border-white/10 rounded-sm">
+                    <i data-lucide="lock" class="w-6 h-6 text-gold flex-shrink-0"></i>
+                    <div>
+                        <h4 class="text-sm font-medium text-white mb-1">Limited Units</h4>
+                        <p class="text-xs text-white/40 font-light">Exclusive boutique collection</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== UNIT TYPES SECTION ==================== -->
+    <section id="units" class="py-24 lg:py-40 bg-beige relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <!-- Header -->
+            <div class="text-center mb-16 lg:mb-20">
+                <p class="text-[10px] tracking-[0.35em] uppercase text-gold font-semibold mb-4 fade-up">Residences</p>
+                <h2
+                    class="font-serif text-3xl sm:text-4xl lg:text-5xl font-medium text-navy leading-tight tracking-tight fade-up">
+                    Choose Your <span class="italic">Residence</span>
+                </h2>
+            </div>
+
+            <!-- Unit Cards -->
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+                <!-- 1 Bedroom -->
+                <div class="unit-card rounded-sm p-8 text-center card-hover fade-up">
+                    <div
+                        class="w-14 h-14 mx-auto mb-6 bg-white rounded-full flex items-center justify-center shadow-sm">
+                        <i data-lucide="bed-double" class="w-6 h-6 text-gold"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl text-navy font-medium mb-2">1 Bedroom</h3>
+                    <p class="text-sm text-navy/50 font-light mb-6">Elegant compact living</p>
+                    <div class="navy-line w-full mb-6"></div>
+                    <p class="text-xs tracking-[0.1em] uppercase text-navy/40 font-medium">From AED 2.6M</p>
+                </div>
+
+                <!-- 2 Bedroom -->
+                <div class="unit-card rounded-sm p-8 text-center card-hover fade-up">
+                    <div
+                        class="w-14 h-14 mx-auto mb-6 bg-white rounded-full flex items-center justify-center shadow-sm">
+                        <i data-lucide="bed-double" class="w-6 h-6 text-gold"></i>
+                        <i data-lucide="bed-double" class="w-4 h-4 text-gold/50 absolute"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl text-navy font-medium mb-2">2 Bedroom</h3>
+                    <p class="text-sm text-navy/50 font-light mb-6">Spacious family design</p>
+                    <div class="navy-line w-full mb-6"></div>
+                    <p class="text-xs tracking-[0.1em] uppercase text-navy/40 font-medium">Request Price</p>
+                </div>
+
+                <!-- 3 Bedroom -->
+                <div class="unit-card rounded-sm p-8 text-center card-hover fade-up">
+                    <div
+                        class="w-14 h-14 mx-auto mb-6 bg-white rounded-full flex items-center justify-center shadow-sm">
+                        <i data-lucide="bed-double" class="w-6 h-6 text-gold"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl text-navy font-medium mb-2">3 Bedroom</h3>
+                    <p class="text-sm text-navy/50 font-light mb-6">Grand waterfront views</p>
+                    <div class="navy-line w-full mb-6"></div>
+                    <p class="text-xs tracking-[0.1em] uppercase text-navy/40 font-medium">Request Price</p>
+                </div>
+
+                <!-- Duplex -->
+                <div class="unit-card rounded-sm p-8 text-center card-hover fade-up relative overflow-hidden">
+                    <div
+                        class="absolute top-0 right-0 bg-gold text-navy text-[9px] tracking-[0.15em] uppercase font-bold px-3 py-1">
+                        Exclusive</div>
+                    <div
+                        class="w-14 h-14 mx-auto mb-6 bg-white rounded-full flex items-center justify-center shadow-sm">
+                        <i data-lucide="building" class="w-6 h-6 text-gold"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl text-navy font-medium mb-2">Duplex</h3>
+                    <p class="text-sm text-navy/50 font-light mb-6">2–5 Bedroom layouts</p>
+                    <div class="navy-line w-full mb-6"></div>
+                    <p class="text-xs tracking-[0.1em] uppercase text-navy/40 font-medium">Request Price</p>
+                </div>
+            </div>
+
+            <!-- CTA under units -->
+            <div class="text-center mt-12 fade-up">
+                <a href="#lead-form"
+                    class="btn-gold inline-flex items-center gap-2 px-8 py-4 text-xs tracking-[0.2em] uppercase font-semibold rounded-sm">
+                    Get Full Price List
+                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FLOOR PLANS SECTION ==================== -->
+    <section id="floor-plans" class="py-24 lg:py-40 bg-white relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-navy/5 to-transparent">
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <!-- Header -->
+            <div class="text-center mb-16 lg:mb-24">
+                <p class="text-[10px] tracking-[0.35em] uppercase text-gold font-semibold mb-4 fade-up">Architectural
+                    Mastery</p>
+                <h2
+                    class="font-serif text-3xl sm:text-4xl lg:text-5xl font-medium text-navy leading-tight tracking-tight fade-up">
+                    Refined <span class="italic">Floor Plans</span>
+                </h2>
+                <div class="w-16 h-px bg-gold mx-auto mt-8 line-reveal"></div>
+            </div>
+
+            <!-- Interactive Viewer -->
+            <div class="grid lg:grid-cols-12 gap-12 items-start">
+                <!-- Left: Floor Selection -->
+                <div class="lg:col-span-3 space-y-3 fade-left">
+                    <p class="text-[10px] tracking-[0.2em] uppercase text-navy/40 font-semibold mb-6 px-4">Select Level
+                    </p>
+                    <div class="flex lg:flex-col flex-wrap gap-2">
+                        <button onclick="switchFloor(1)"
+                            class="floor-btn active w-full px-6 py-4 rounded-sm text-left text-[10px] tracking-[0.15em] uppercase font-semibold flex justify-between items-center group">
+                            1st Floor
+                            <i data-lucide="chevron-right"
+                                class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </button>
+                        <button onclick="switchFloor(2)"
+                            class="floor-btn w-full px-6 py-4 rounded-sm text-left text-[10px] tracking-[0.15em] uppercase font-semibold flex justify-between items-center group">
+                            2nd Floor
+                            <i data-lucide="chevron-right"
+                                class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </button>
+                        <button onclick="switchFloor(3)"
+                            class="floor-btn w-full px-6 py-4 rounded-sm text-left text-[10px] tracking-[0.15em] uppercase font-semibold flex justify-between items-center group">
+                            3rd Floor
+                            <i data-lucide="chevron-right"
+                                class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </button>
+                        <button onclick="switchFloor(4)"
+                            class="floor-btn w-full px-6 py-4 rounded-sm text-left text-[10px] tracking-[0.15em] uppercase font-semibold flex justify-between items-center group">
+                            4th Floor
+                            <i data-lucide="chevron-right"
+                                class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </button>
+                        <button onclick="switchFloor(5)"
+                            class="floor-btn w-full px-6 py-4 rounded-sm text-left text-[10px] tracking-[0.15em] uppercase font-semibold flex justify-between items-center group">
+                            5th Floor
+                            <i data-lucide="chevron-right"
+                                class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </button>
+                        <button onclick="switchFloor(6)"
+                            class="floor-btn w-full px-6 py-4 rounded-sm text-left text-[10px] tracking-[0.15em] uppercase font-semibold flex justify-between items-center group">
+                            6th Floor
+                            <i data-lucide="chevron-right"
+                                class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </button>
+                        <button onclick="switchFloor(7)"
+                            class="floor-btn w-full px-6 py-4 rounded-sm text-left text-[10px] tracking-[0.15em] uppercase font-semibold flex justify-between items-center group">
+                            7th Floor
+                            <i data-lucide="chevron-right"
+                                class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </button>
+                        <button onclick="switchFloor(8)"
+                            class="floor-btn w-full px-6 py-4 rounded-sm text-left text-[10px] tracking-[0.15em] uppercase font-semibold flex justify-between items-center group">
+                            8th Floor
+                            <i data-lucide="chevron-right"
+                                class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </button>
+                    </div>
+
+                    <div class="pt-8 px-4">
+                        <div class="p-6 bg-beige/30 rounded-sm border border-gold/10">
+                            <h4 class="font-serif text-lg text-navy mb-3">Bespoke Layouts</h4>
+                            <p class="text-xs text-navy/60 font-light leading-relaxed">
+                                Each floor is meticulously designed to optimize space and maximize waterfront vistas.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Content Display -->
+                <div class="lg:col-span-9 fade-right">
+                    <div
+                        class="bg-beige/20 border border-navy/5 rounded-sm p-4 lg:p-12 relative min-h-[600px] flex items-center justify-center group/viewer">
+                        <!-- Image Container with Zoom hint -->
+                        <div id="floorPlanContainer" class="w-full h-full flex flex-col items-center justify-center">
+                            <div class="floor-plan-image-container relative mb-8">
+                                <img id="activeFloorPlan" src="assets/floor-1.png" alt="1st Floor Plan"
+                                    class="max-w-full lg:max-h-[70vh] object-contain shadow-2xl transition-all duration-700">
+
+                                <!-- Floor Label Overlay -->
+                                <div
+                                    class="absolute top-4 left-4 bg-navy text-gold text-[10px] tracking-[0.2em] uppercase font-bold px-4 py-2 rounded-sm shadow-xl">
+                                    <span id="floorLabel">1st Floor</span>
+                                </div>
+                            </div>
+
+                            <!-- Interactive Details Reveal -->
+                            <div class="w-full max-w-2xl text-center">
+                                <button onclick="scrollToLead()"
+                                    class="text-[10px] tracking-[0.3em] uppercase text-gold font-bold flex items-center justify-center gap-2 mx-auto hover:gap-4 transition-all duration-300">
+                                    Request Full Unit Specs <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Zoom Hint (Desktop) -->
+                        <div
+                            class="absolute bottom-6 left-1/2 -translate-x-1/2 opacity-0 group-hover/viewer:opacity-100 transition-opacity bg-navy/90 backdrop-blur-md text-white text-[9px] tracking-[0.2em] uppercase px-6 py-2.5 rounded-full pointer-events-none">
+                            High-Res Architectural Drawings
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== LEAD FORM SECTION ==================== -->
+    <section id="lead-form" class="py-24 lg:py-40 bg-white relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent">
+        </div>
+        <div
+            class="absolute bottom-0 left-0 w-96 h-96 bg-beige/30 rounded-full -translate-y-1/2 -translate-x-1/2 blur-3xl">
+        </div>
+        <div class="absolute top-0 right-0 w-96 h-96 bg-beige/30 rounded-full translate-y-1/2 translate-x-1/2 blur-3xl">
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+                <!-- Left: Content -->
+                <div class="fade-left">
+                    <p class="text-[10px] tracking-[0.35em] uppercase text-gold font-semibold mb-4">Priority Access</p>
+                    <h2
+                        class="font-serif text-3xl sm:text-4xl lg:text-5xl font-medium text-navy leading-tight tracking-tight mb-6">
+                        Own a Rare<br><span class="italic">Waterfront Address</span>
+                    </h2>
+
+                    <div class="w-16 h-px bg-gold mb-8 line-reveal"></div>
+
+                    <p class="text-base lg:text-lg text-navy/70 font-light leading-relaxed mb-10">
+                        Discover availability, pricing, and exclusive details. Submit your interest and our luxury
+                        property consultant will connect with you within 24 hours.
+                    </p>
+
+                    <!-- Trust points -->
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-3">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-gold flex-shrink-0"></i>
+                            <p class="text-sm text-navy/70 font-light">Priority access to limited units before public
+                                launch</p>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-gold flex-shrink-0"></i>
+                            <p class="text-sm text-navy/70 font-light">Exclusive floor plans & price sheet</p>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-gold flex-shrink-0"></i>
+                            <p class="text-sm text-navy/70 font-light">Private viewing arrangement at the show villa</p>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-gold flex-shrink-0"></i>
+                            <p class="text-sm text-navy/70 font-light">No obligation — fully confidential consultation
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Badge again for trust reinforcement -->
+                    <div class="mt-10 flex items-center gap-4 opacity-60">
+                        <img src="https://z-cdn-media.chatglm.cn/files/8b3dc4be-bf59-49f9-9efe-4f8371d7271e.png?auth_key=1876853941-eecf6fa797864e8db7ddef29503838b8-0-a3635ae05ef2dee2cc04091d7d161601"
+                            alt="Top 100" class="w-14 h-14 object-contain">
+                        <p class="text-xs text-navy/50 font-light">Developed by Mr. Eight<br>World Top 100 Developer</p>
+                    </div>
+                </div>
+
+                <!-- Right: Form -->
+                <div class="fade-right">
+                    <div class="bg-beige/50 border border-navy/10 rounded-sm p-8 lg:p-12">
+                        <div class="text-center mb-8">
+                            <div
+                                class="w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center mx-auto mb-4">
+                                <i data-lucide="file-text" class="w-5 h-5 text-gold"></i>
+                            </div>
+                            <h3 class="font-serif text-2xl text-navy font-medium mb-2">Register Your Interest</h3>
+                            <p class="text-sm text-navy/50 font-light">Receive floor plans & prices instantly</p>
+                        </div>
+
+                        <form id="mainForm" class="space-y-5" onsubmit="handleFormSubmit(event, 'mainForm')">
+                            <div>
+                                <label
+                                    class="block text-[10px] tracking-[0.2em] uppercase text-navy/60 font-medium mb-2">Full
+                                    Name *</label>
+                                <input type="text" required
+                                    class="form-input-light w-full px-4 py-3.5 rounded-sm text-sm font-light"
+                                    placeholder="Enter your full name">
+                            </div>
+                            <div>
+                                <label
+                                    class="block text-[10px] tracking-[0.2em] uppercase text-navy/60 font-medium mb-2">Phone
+                                    Number *</label>
+                                <input type="tel" required
+                                    class="form-input-light w-full px-4 py-3.5 rounded-sm text-sm font-light"
+                                    placeholder="+971 XX XXX XXXX">
+                            </div>
+                            <div>
+                                <label
+                                    class="block text-[10px] tracking-[0.2em] uppercase text-navy/60 font-medium mb-2">Email
+                                    Address *</label>
+                                <input type="email" required
+                                    class="form-input-light w-full px-4 py-3.5 rounded-sm text-sm font-light"
+                                    placeholder="your@email.com">
+                            </div>
+                            <div>
+                                <label
+                                    class="block text-[10px] tracking-[0.2em] uppercase text-navy/60 font-medium mb-2">Unit
+                                    Preference</label>
+                                <select
+                                    class="form-input-light w-full px-4 py-3.5 rounded-sm text-sm font-light text-navy/60">
+                                    <option value="">Select unit type</option>
+                                    <option value="1br">1 Bedroom</option>
+                                    <option value="2br">2 Bedroom</option>
+                                    <option value="3br">3 Bedroom</option>
+                                    <option value="duplex">Duplex (2–5 Bedroom)</option>
+                                </select>
+                            </div>
+                            <button type="submit"
+                                class="btn-gold w-full py-4 text-xs tracking-[0.2em] uppercase font-semibold rounded-sm flex items-center justify-center gap-2 mt-2">
+                                Get Floor Plans & Prices
+                                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                            </button>
+                        </form>
+
+                        <p class="text-[10px] text-navy/30 text-center mt-5 font-light">By registering, you agree to
+                            receive marketing communications. You can unsubscribe at any time.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FINAL CTA SECTION ==================== -->
+    <section class="relative py-32 lg:py-48 overflow-hidden">
+        <!-- Background -->
+        <div class="absolute inset-0 parallax-section">
+            <img src="https://z-cdn-media.chatglm.cn/files/b2c8b121-694d-40e7-bd95-6152265ae7d8.png?auth_key=1876853941-2677dd92457242c6bd67cd13cf6a7ee6-0-8c16d01eebdf2800889a45e6decf64b7"
+                alt="Dubai Skyline" class="w-full h-full object-cover">
+        </div>
+        <div class="absolute inset-0 bg-navy/80"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-navy via-transparent to-navy/50"></div>
+
+        <div class="relative z-10 max-w-3xl mx-auto px-6 text-center">
+            <div class="fade-up">
+                <div class="flex justify-center mb-8">
+                    <img src="https://z-cdn-media.chatglm.cn/files/8b3dc4be-bf59-49f9-9efe-4f8371d7271e.png?auth_key=1876853941-eecf6fa797864e8db7ddef29503838b8-0-a3635ae05ef2dee2cc04091d7d161601"
+                        alt="Top 100 Developer" class="w-20 h-20 object-contain opacity-80">
+                </div>
+                <h2
+                    class="font-serif text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-medium text-white leading-tight tracking-tight mb-6">
+                    Own a Rare<br><span class="italic gold-gradient">Waterfront Address</span>
+                </h2>
+                <p class="text-base lg:text-lg text-white/60 font-light leading-relaxed mb-10 max-w-xl mx-auto">
+                    Discover availability, pricing, and exclusive details for Villa del GARDA.
+                </p>
+                <a href="#lead-form"
+                    class="btn-gold inline-flex items-center gap-3 px-10 py-5 text-xs tracking-[0.2em] uppercase font-semibold rounded-sm">
+                    Register Now
+                    <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="bg-navy-dark py-16 lg:py-20">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-12 lg:gap-20 mb-16">
+                <!-- Brand -->
+                <div>
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 rounded-full bg-gold flex items-center justify-center">
+                            <span class="font-serif text-navy font-bold text-lg">8</span>
+                        </div>
+                        <div>
+                            <p class="font-serif text-sm font-semibold tracking-wider text-white">MR. EIGHT</p>
+                            <p class="text-[10px] tracking-[0.2em] uppercase text-white/40">Development</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-white/40 font-light leading-relaxed">
+                        World Top 100 Developer. Creating landmark residential experiences across Dubai's most
+                        prestigious addresses.
+                    </p>
+                </div>
+
+                <!-- Project -->
+                <div>
+                    <h4 class="text-[10px] tracking-[0.25em] uppercase text-gold font-semibold mb-6">The Project</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#story"
+                                class="text-sm text-white/50 hover:text-gold transition-colors font-light">The Story</a>
+                        </li>
+                        <li><a href="#lifestyle"
+                                class="text-sm text-white/50 hover:text-gold transition-colors font-light">Lifestyle</a>
+                        </li>
+                        <li><a href="#amenities"
+                                class="text-sm text-white/50 hover:text-gold transition-colors font-light">Amenities</a>
+                        </li>
+                        <li><a href="#location"
+                                class="text-sm text-white/50 hover:text-gold transition-colors font-light">Location</a>
+                        </li>
+                        <li><a href="#investment"
+                                class="text-sm text-white/50 hover:text-gold transition-colors font-light">Investment</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div>
+                    <h4 class="text-[10px] tracking-[0.25em] uppercase text-gold font-semibold mb-6">Get in Touch</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-center gap-3">
+                            <i data-lucide="phone" class="w-4 h-4 text-gold/70"></i>
+                            <span class="text-sm text-white/50 font-light">+971 4 XXX XXXX</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i data-lucide="mail" class="w-4 h-4 text-gold/70"></i>
+                            <span class="text-sm text-white/50 font-light">info@villadelgarda.ae</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i data-lucide="map-pin" class="w-4 h-4 text-gold/70"></i>
+                            <span class="text-sm text-white/50 font-light">Dubai Islands, Dubai, UAE</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Divider -->
+            <div class="w-full h-px bg-white/10 mb-8"></div>
+
+            <!-- Bottom -->
+            <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+                <p class="text-[10px] text-white/30 font-light tracking-wider">
+                    © 2025 Villa del GARDA by Mr. Eight Development. All rights reserved.
+                </p>
+                <div class="flex items-center gap-4">
+                    <a href="#"
+                        class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:border-gold hover:bg-gold/10 transition-all duration-300 group">
+                        <svg class="w-5 h-5 text-white/40 group-hover:text-gold transition-colors" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
+                    </a>
+                    <a href="#"
+                        class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:border-gold hover:bg-gold/10 transition-all duration-300 group">
+                        <svg class="w-5 h-5 text-white/40 group-hover:text-gold transition-colors" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z">
+                            </path>
+                            <rect x="2" y="9" width="4" height="12"></rect>
+                            <circle cx="4" cy="4" r="2"></circle>
+                        </svg>
+                    </a>
+                    <a href="#"
+                        class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:border-gold hover:bg-gold/10 transition-all duration-300 group">
+                        <svg class="w-5 h-5 text-white/40 group-hover:text-gold transition-colors" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- <p class="text-[9px] text-white/20 text-center mt-8 font-light leading-relaxed max-w-2xl mx-auto">
+                Disclaimer: All imagery, renders, and specifications are conceptual and subject to change. This is not
+                an offer or contract. Prices and availability may vary. Please consult our sales team for the most
+                current information.
+            </p> -->
+        </div>
+    </footer>
+
+    <!-- ==================== STICKY MOBILE CTA ==================== -->
+    <div id="stickyCtaMobile" class="sticky-cta-mobile lg:hidden">
+        <div class="bg-navy/95 backdrop-blur-xl border-t border-gold/20 px-6 py-4">
+            <a href="#lead-form"
+                class="btn-gold block text-center py-3.5 text-xs tracking-[0.2em] uppercase font-semibold rounded-sm">
+                Get Floor Plans & Prices
+            </a>
+        </div>
+    </div>
+
+    <!-- WhatsApp FAB -->
+    <a href="https://wa.me/971XXXXXXXXX" target="_blank" id="whatsappFab"
+        class="fixed bottom-24 lg:bottom-8 right-6 z-40 w-14 h-14 bg-[#25D366] rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform duration-300 opacity-0">
+        <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
+            <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+        </svg>
+    </a>
+
+    <!-- ==================== SCRIPTS ==================== -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Register GSAP plugins
+        gsap.registerPlugin(ScrollTrigger);
+
+        // ===== NAVIGATION SCROLL BEHAVIOR =====
+        // ===== NAVIGATION STATE =====
+        const navbar = document.getElementById('navbar');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const navTextColors = document.querySelectorAll('.nav-text-color');
+        const navTextSubs = document.querySelectorAll('.nav-text-sub');
+        const navLogo = document.getElementById('navLogo');
+        let menuOpen = false;
+
+        function updateNav() {
+            const scrollY = window.scrollY;
+
+            // If the menu is open, we want to keep the header dark for visibility
+            if (scrollY > 80 && !menuOpen) {
+                navbar.classList.add('nav-scrolled');
+                if (navLogo) navLogo.classList.remove('brightness-0', 'invert');
+                navLinks.forEach(l => { l.classList.remove('text-white/80'); l.classList.add('text-navy/70'); });
+                navTextColors.forEach(t => { t.classList.remove('text-white'); t.classList.add('text-navy'); });
+                navTextSubs.forEach(t => { t.classList.remove('text-white/60'); t.classList.add('text-navy/40'); });
+            } else if (menuOpen) {
+                // If menu is open, force dark background and white text for the menu
+                navbar.classList.remove('nav-scrolled');
+                navbar.classList.add('bg-navy-dark');
+                if (navLogo) navLogo.classList.add('brightness-0', 'invert');
+                navLinks.forEach(l => { l.classList.add('text-white/80'); l.classList.remove('text-navy/70'); });
+                navTextColors.forEach(t => { t.classList.add('text-white'); t.classList.remove('text-navy'); });
+                navTextSubs.forEach(t => { t.classList.add('text-white/60'); t.classList.remove('text-navy/40'); });
+            } else {
+                navbar.classList.remove('nav-scrolled');
+                navbar.classList.remove('bg-navy-dark');
+                if (navLogo) navLogo.classList.add('brightness-0', 'invert');
+                navLinks.forEach(l => { l.classList.add('text-white/80'); l.classList.remove('text-navy/70'); });
+                navTextColors.forEach(t => { t.classList.add('text-white'); t.classList.remove('text-navy'); });
+                navTextSubs.forEach(t => { t.classList.add('text-white/60'); t.classList.remove('text-navy/40'); });
+            }
+        }
+        window.addEventListener('scroll', updateNav);
+        updateNav();
+
+        // ===== FLOOR PLAN SWITCHER =====
+        function switchFloor(floorNum) {
+            const img = document.getElementById('activeFloorPlan');
+            const label = document.getElementById('floorLabel');
+            const btns = document.querySelectorAll('.floor-btn');
+
+            // Update buttons state
+            btns.forEach((btn, idx) => {
+                if (idx === floorNum - 1) btn.classList.add('active');
+                else btn.classList.remove('active');
+            });
+
+            // Suffix for floor label
+            const suffixes = ["st", "nd", "rd", "th", "th", "th", "th", "th"];
+            const floorName = `${floorNum}${suffixes[floorNum - 1]} Floor`;
+
+            // GSAP Enhanced Animation
+            const tl = gsap.timeline();
+
+            tl.to(img, {
+                opacity: 0,
+                scale: 0.98,
+                filter: 'blur(10px)',
+                duration: 0.4,
+                ease: 'power2.in',
+                onComplete: () => {
+                    img.src = `assets/floor-${floorNum}.png`;
+                    img.alt = `${floorName} Plan`;
+                    label.textContent = floorName;
+                }
+            })
+                .to(img, {
+                    opacity: 1,
+                    scale: 1,
+                    filter: 'blur(0px)',
+                    duration: 0.8,
+                    ease: 'power3.out'
+                });
+        }
+
+        function scrollToLead() {
+            const target = document.querySelector('#lead-form');
+            if (target) {
+                const offset = 80;
+                const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        // ===== MOBILE MENU =====
+
+        mobileMenuBtn.addEventListener('click', () => {
+            menuOpen = !menuOpen;
+            mobileMenu.classList.toggle('hidden');
+
+            // Update icon and colors
+            const icon = mobileMenuBtn.querySelector('i');
+            if (menuOpen) {
+                icon.setAttribute('data-lucide', 'x');
+                // Ensure text is white when menu is open
+                mobileMenuBtn.classList.add('text-white');
+                mobileMenuBtn.classList.remove('text-navy');
+            } else {
+                icon.setAttribute('data-lucide', 'menu');
+            }
+
+            // Force update navigation state
+            updateNav();
+            lucide.createIcons();
+        });
+
+        // Close mobile menu on link click
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                menuOpen = false;
+                const icon = mobileMenuBtn.querySelector('i');
+                icon.setAttribute('data-lucide', 'menu');
+                lucide.createIcons();
+            });
+        });
+
+        // ===== STICKY MOBILE CTA =====
+        const stickyCtaMobile = document.getElementById('stickyCtaMobile');
+        const heroSection = document.getElementById('hero');
+
+        window.addEventListener('scroll', () => {
+            const heroBottom = heroSection.getBoundingClientRect().bottom;
+            if (heroBottom < 0) {
+                stickyCtaMobile.classList.add('visible');
+            } else {
+                stickyCtaMobile.classList.remove('visible');
+            }
+        });
+
+        // ===== WHATSAPP FAB =====
+        const whatsappFab = document.getElementById('whatsappFab');
+        gsap.to(whatsappFab, {
+            opacity: 1,
+            scrollTrigger: {
+                trigger: '#hero',
+                start: 'bottom top',
+                toggleActions: 'play none none reverse'
+            }
+        });
+
+        // ===== HERO ANIMATIONS =====
+        const heroTimeline = gsap.timeline({ delay: 0.5 });
+        heroTimeline
+            .to('.hero-badge', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' })
+            .to('#hero h1', { opacity: 1, y: 0, duration: 1, ease: 'power3.out' }, '-=0.4')
+            .to('#hero .fade-up:nth-of-type(3)', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.5')
+            .to('#hero .fade-up:nth-of-type(4)', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.4')
+            .to('#hero .fade-up:last-of-type', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.4')
+            .to('.hero-scroll-indicator', { opacity: 1, duration: 0.6 }, '-=0.2');
+
+        // ===== SCROLL-TRIGGERED ANIMATIONS =====
+        // Fade Up
+        gsap.utils.toArray('.fade-up').forEach(el => {
+            if (el.closest('#hero')) return; // skip hero elements
+            gsap.to(el, {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: el,
+                    start: 'top 85%',
+                    toggleActions: 'play none none none'
+                }
+            });
+        });
+
+        // Fade Left
+        gsap.utils.toArray('.fade-left').forEach(el => {
+            gsap.to(el, {
+                opacity: 1,
+                x: 0,
+                duration: 1,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: el,
+                    start: 'top 85%',
+                    toggleActions: 'play none none none'
+                }
+            });
+        });
+
+        // Fade Right
+        gsap.utils.toArray('.fade-right').forEach(el => {
+            gsap.to(el, {
+                opacity: 1,
+                x: 0,
+                duration: 1,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: el,
+                    start: 'top 85%',
+                    toggleActions: 'play none none none'
+                }
+            });
+        });
+
+        // Line Reveal
+        gsap.utils.toArray('.line-reveal').forEach(el => {
+            gsap.to(el, {
+                width: '4rem',
+                duration: 1,
+                ease: 'power2.out',
+                scrollTrigger: {
+                    trigger: el,
+                    start: 'top 85%',
+                    toggleActions: 'play none none none'
+                }
+            });
+        });
+
+        // Scale In
+        gsap.utils.toArray('.scale-in').forEach(el => {
+            gsap.to(el, {
+                opacity: 1,
+                scale: 1,
+                duration: 0.8,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: el,
+                    start: 'top 85%',
+                    toggleActions: 'play none none none'
+                }
+            });
+        });
+
+        // ===== PARALLAX =====
+        gsap.utils.toArray('.parallax-section').forEach(section => {
+            const img = section.querySelector('img');
+            if (img) {
+                gsap.to(img, {
+                    yPercent: -15,
+                    ease: 'none',
+                    scrollTrigger: {
+                        trigger: section,
+                        start: 'top bottom',
+                        end: 'bottom top',
+                        scrub: true
+                    }
+                });
+            }
+        });
+
+        // ===== COUNTER ANIMATION =====
+        gsap.utils.toArray('.counter').forEach(counter => {
+            const target = parseInt(counter.getAttribute('data-target'));
+            const obj = { val: 0 };
+            gsap.to(obj, {
+                val: target,
+                duration: 2,
+                ease: 'power2.out',
+                scrollTrigger: {
+                    trigger: counter,
+                    start: 'top 85%',
+                    toggleActions: 'play none none none'
+                },
+                onUpdate: () => {
+                    counter.textContent = Math.round(obj.val);
+                }
+            });
+        });
+
+        // ===== FORM HANDLING =====
+        function handleFormSubmit(event, formId) {
+            event.preventDefault();
+            const form = document.getElementById(formId);
+
+            // Simple validation visual
+            const inputs = form.querySelectorAll('input[required]');
+            let valid = true;
+            inputs.forEach(input => {
+                if (!input.value.trim()) {
+                    valid = false;
+                    input.style.borderColor = '#ef4444';
+                    setTimeout(() => { input.style.borderColor = ''; }, 3000);
+                }
+            });
+
+            if (!valid) return;
+
+            // Show toast
+            showToast('Thank you for your interest! Our team will contact you within 24 hours.');
+
+            // Reset form
+            form.reset();
+
+            // Button animation
+            const btn = form.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<svg class="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>';
+            btn.disabled = true;
+            setTimeout(() => {
+                btn.innerHTML = '✓ Sent Successfully';
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                    lucide.createIcons();
+                }, 2000);
+            }, 1500);
+        }
+
+        // ===== TOAST =====
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            toastMessage.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => { toast.classList.remove('show'); }, 5000);
+        }
+
+        // ===== SMOOTH SCROLL for anchor links =====
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                e.preventDefault();
+                const target = document.querySelector(targetId);
+                if (target) {
+                    const offset = 80;
+                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Initialize icons on events to ensure they catch all elements
+        document.addEventListener('DOMContentLoaded', () => lucide.createIcons());
+        window.addEventListener('load', () => lucide.createIcons());
+    </script>
+
+</body>
+
+</html>
